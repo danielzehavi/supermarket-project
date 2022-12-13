@@ -1,0 +1,71 @@
+<div class="container text-center">
+  <form
+    #addProductForm="ngForm"
+    [formGroup]="reactiveForm"
+    (ngSubmit)="send($event); addProductForm.reset()"
+    ngNativeValidate
+    class="form-group"
+  >
+    <label for="category">Select Category:</label>
+    <select
+      name="category"
+      id="category"
+      [(ngModel)]="product.categoryId"
+      formControlName="productCategory"
+      class="form-control"
+      required
+    >
+      <option selected disabled value="">None</option>
+      <option *ngFor="let category of categories" [value]="category._id">
+        {{ category.categoryName }}
+      </option>
+    </select>
+
+    <label>Product Name: </label>
+    <input
+      type="text"
+      name="productName"
+      [(ngModel)]="product.productName"
+      formControlName="productName"
+      class="form-control"
+      required
+      minlength="2"
+      maxlength="100"
+    />
+
+    <label>Price: </label>
+    <input
+      type="number"
+      name="productPrice"
+      [(ngModel)]="product.price"
+      formControlName="productPrice"
+      required
+      class="form-control"
+      step="1"
+      min="1"
+      max="500"
+    />
+
+    <label>Image: </label>
+    <input
+      type="file"
+      accept="images/*"
+      name="image"
+      class="form-control"
+      required
+      #imageFileInput
+    />
+
+    <!-- show different buttons according to action: -->
+    <button
+      type="submit"
+      class="btn btn-light"
+      *ngIf="!this.productToEdit; else update"
+    >
+      Add
+    </button>
+    <ng-template #update>
+      <button type="submit" class="btn btn-light">Update</button></ng-template
+    >
+  </form>
+</div>

@@ -1,0 +1,163 @@
+<div class="container text-center">
+  <br />
+  <a routerLink="/products" class="btn btn-outline-dark mb-3">Go Back</a>
+
+  <br /><br />
+
+  <div>
+    <h4>Thank you for choosing us to deliver your groceries</h4>
+    <h6>Just fill in your address and the delivery will be on the way!</h6>
+  </div>
+
+  <br /><br />
+
+  <input
+    type="search"
+    placeholder="Search a product"
+    [(ngModel)]="itemToSearch"
+    class="form-control mb-3"
+    (input)="onSearchChange($event)"
+  />
+
+  <!-- all the items for the receipt: -->
+  <div>
+    <div id="print-section">
+      <!--Your html stuff that you want to print-->
+      <app-item-card *ngFor="let i of this.items" [item]="i"></app-item-card>
+      <div>Total Cart: {{ this.totalCartPrice | currency }}</div>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- receipt message modal: -->
+  <ng-template #content let-modal>
+    <div class="modal-body">
+      <form class="form-outline">
+        <div class="mb-3">
+          <p>Order confirmed! Download receipt?</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <!-- 2)- Add the directive name in your button (ngxPrint),
+     3)- Affect your ID to printSectionId -->
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+        [useExistingCss]="true"
+        printSectionId="print-section"
+        ngxPrint
+      >
+        Yes
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.dismiss('Cross click')"
+      >
+        No
+      </button>
+    </div>
+  </ng-template>
+
+  <form
+    (ngSubmit)="send()"
+    ngNativeValidate
+    [formGroup]="reactiveForm"
+    class="form-group container tb-10"
+  >
+    <h1>Shipping Details</h1>
+    <br /><br />
+
+    <label for=""
+      >Select City:
+      <i-bs
+        name="question-lg"
+        id="tooltip"
+        ngbTooltip="If your shipping address same as home address, double click in 'City' or
+  'Street' field to fill them automatically:"
+        [openDelay]="300"
+        [closeDelay]="500"
+      >
+      </i-bs
+    ></label>
+    <select
+      [(ngModel)]="order.cityToDeliver"
+      name="cityToDeliver"
+      class="form-control"
+      required
+      formControlName="city"
+      (dblclick)="getUserAddress()"
+    >
+      <option>Tel Aviv</option>
+      <option>Jerusalem</option>
+      <option>Haifa</option>
+      <option>Petah Tikva</option>
+      <option>Ashdod</option>
+      <option>Netanya</option>
+      <option>Rishon Leziyon</option>
+      <option>Ramat Gan</option>
+      <option>Holon</option>
+      <option>Beer Sheva</option>
+    </select>
+
+    <label
+      >Shipping Street:
+      <i-bs
+        name="question-lg"
+        id="tooltip"
+        ngbTooltip="If your shipping address same as home address, double click in 'City' or
+  'Street' field to fill them automatically:"
+        [openDelay]="300"
+        [closeDelay]="500"
+      >
+      </i-bs>
+    </label>
+    <input
+      type="text"
+      name="streetToDeliver"
+      [(ngModel)]="order.streetToDeliver"
+      required
+      minlength="5"
+      maxlength="100"
+      formControlName="street"
+      (dblclick)="getUserAddress()"
+      class="form-control"
+    />
+
+    <label>Shipping Date: </label>
+    <input
+      type="date"
+      name="dateToDeliver"
+      [(ngModel)]="order.dateToDeliver"
+      formControlName="dateToDeliver"
+      required
+      min="{{ now }}"
+      class="form-control"
+    />
+
+    <label>Credit Card: </label>
+    <input
+      id="ccn"
+      type="tel"
+      inputmode="numeric"
+      [(ngModel)]="order.lastCreditDigits"
+      name="lastCreditDigits"
+      autocomplete="cc-number"
+      minlength="12"
+      maxlength="16"
+      pattern="[0-9]{16}"
+      class="form-control"
+      formControlName="lastCreditDigits"
+      (change)="validateCreditCardNumber()"
+      #creditCardInput
+      required
+    />
+
+    <button type="submit" class="btn btn-light" [disabled]="!this.formValid">
+      Order
+    </button>
+  </form>
+</div>

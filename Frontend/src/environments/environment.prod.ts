@@ -1,0 +1,18 @@
+export const environment = {
+  production: true,
+  imagesUrl: "http://localhost:3001/images/",
+  categoriesUrl: "http://localhost:3001/api/categories/",
+  productsByCategoryUrl: "http://localhost:3001/api/products-by-category/",
+  productsUrl: "http://localhost:3001/api/products/",
+  registerUrl: "http://localhost:3001/api/auth/register/",
+  loginUrl: "http://localhost:3001/api/auth/login/",
+  cartsUrl: "http://localhost:3001/api/carts",
+  cartsByUserUrl: "http://localhost:3001/api/carts-by-user/",
+  lastCartByUserUrl: "http://localhost:3001/api/last-cart-by-user/",
+  ordersUrl: "http://localhost:3001/api/orders/",
+  ordersByUserUrl: "http://localhost:3001/api/orders-by-user/",
+  orderByCartUrl: "http://localhost:3001/api/order-by-cart/",
+  itemsUrl: "http://localhost:3001/api/items/",
+  itemsByCart: "http://localhost:3001/api/items-by-cart/",
+  deleteAllItemsByCart: "http://localhost:3001/api/delete-all-items-by-cart/",
+};

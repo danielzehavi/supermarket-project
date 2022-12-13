@@ -1,0 +1,145 @@
+<div class="register">
+  <div class="container tb-10">
+    <form (ngSubmit)="submit()" [formGroup]="multistep" ngNativeValidate>
+      <!-- First Step: -->
+      <div *ngIf="step == 1" formGroupName="userDetails" class="form-group">
+        <h4>Register</h4>
+        <div>
+          <label>ID Number: </label>
+          <input
+            type="text"
+            name="identifyNumber"
+            [(ngModel)]="user.identifyNumber"
+            formControlName="identifyNumber"
+            class="form-control"
+            required
+            pattern="[0-9.]+"
+            minlength="9"
+            maxlength="9"
+            oninvalid="this.setCustomValidity('Enter Numbers only, 9 characters')"
+            oninput="this.setCustomValidity('')"
+          />
+        </div>
+        <div>
+          <label>Email: </label>
+          <input
+            type="email"
+            name="userName"
+            [(ngModel)]="user.userName"
+            required
+            minlength="3"
+            maxlength="100"
+            class="form-control"
+            formControlName="userName"
+            required
+            minlength="9"
+            maxlength="50"
+          />
+        </div>
+        <div>
+          <label>Password: </label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            [(ngModel)]="user.password"
+            formControlName="password"
+            required
+            minlength="6"
+            maxlength="100"
+          />
+        </div>
+        <div>
+          <label>Confirm Password: </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            class="form-control"
+            formControlName="confirmPassword"
+            required
+            minlength="6"
+            maxlength="100"
+          />
+        </div>
+      </div>
+
+      <!-- Second Step:  -->
+      <div *ngIf="step == 2" formGroupName="personalDetails" class="form-group">
+        <h4>Register</h4>
+        <div>
+          <label>First Name: </label>
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="user.firstName"
+            formControlName="firstName"
+            class="form-control"
+            required
+            minlength="2"
+            maxlength="20"
+          />
+        </div>
+        <div>
+          <label>Last Name: </label>
+          <input
+            type="text"
+            name="lastName"
+            [(ngModel)]="user.lastName"
+            formControlName="lastName"
+            class="form-control"
+            required
+            minlength="3"
+            maxlength="20"
+          />
+        </div>
+        <div>
+          <label for="city">Select City: </label>
+          <select
+            [(ngModel)]="user.city"
+            name="city"
+            class="form-control"
+            required
+            formControlName="city"
+          >
+            <option>Tel Aviv</option>
+            <option>Jerusalem</option>
+            <option>Haifa</option>
+            <option>Petah Tikva</option>
+            <option>Ashdod</option>
+            <option>Netanya</option>
+            <option>Rishon Leziyon</option>
+            <option>Ramat Gan</option>
+            <option>Holon</option>
+            <option>Beer Sheva</option>
+          </select>
+        </div>
+        <div>
+          <label>Street: </label>
+          <input
+            type="text"
+            name="street"
+            [(ngModel)]="user.street"
+            formControlName="street"
+            class="form-control"
+            required
+            minlength="5"
+            maxlength="50"
+          />
+        </div>
+      </div>
+      <br />
+      <button class="btn btn-light" *ngIf="step != 1" (click)="previous()">
+        Previous
+      </button>
+      <button type="submit" class="btn btn-light" *ngIf="step != 2">
+        Next
+      </button>
+      <button type="submit" class="btn btn-light" *ngIf="step == 2">
+        Submit
+      </button>
+      <br /><br />
+
+      <a routerLink="/login">Have an account? Sign in</a>
+    </form>
+  </div>
+</div>

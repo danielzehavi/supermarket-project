@@ -1,0 +1,67 @@
+<div class="container text-center main">
+  <button
+    class="btn btn-lg"
+    (click)="open(content)"
+    *ngIf="this.isAdmin() === false; else addProductButton"
+  >
+    🛒
+  </button>
+  <ng-template #addProductButton>
+    <button class="btn btn-lg" (click)="open(content)">
+      Add Product <i-bs name="plus-circle" id="plusCircle"> </i-bs>
+    </button>
+  </ng-template>
+
+  <ng-template #content let-offcanvas>
+    <div class="offcanvas-header">
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="offcanvas.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- if user, load cart component -->
+      <div *ngIf="this.isAdmin() === false; else addProductComponent">
+        <!-- sending to the cart component the cart value -->
+        <app-cart [cart]="this.cart"></app-cart>
+      </div>
+      <!-- If it's admin, load add-product component -->
+      <ng-template #addProductComponent>
+        <app-add-product></app-add-product>
+      </ng-template>
+      <br />
+      <br />
+    </div>
+  </ng-template>
+
+  <pre>{{ closeResult }}</pre>
+
+  <label for="">Select Category:</label>
+  <select (change)="onSelectChange($event)" class="form-control mb-3">
+    <option>All Categories</option>
+    <option *ngFor="let category of categories" [value]="category._id">
+      {{ category.categoryName }}
+    </option>
+  </select>
+
+  <label for="">Search:</label>
+  <input
+    type="search"
+    [(ngModel)]="productToSearch"
+    class="form-control mb-3"
+    #searchInput
+    (input)="onSearchChange($event)"
+  />
+
+  <br />
+  <div class="card-group row row-cols-2 row-cols-md-4 g-4">
+    <app-product-card
+      [cart]="this.cart"
+      [userRole]="this.authService.getUserInfo().Role"
+      *ngFor="let p of products"
+      [product]="p"
+    ></app-product-card>
+  </div>
+</div>

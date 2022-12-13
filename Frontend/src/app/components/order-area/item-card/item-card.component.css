@@ -1,0 +1,19 @@
+img {
+  width: auto;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid black;
+  vertical-align: middle;
+}
+
+div > div:last-child {
+  margin-left: auto;
+}
+
+.itemBox {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+}

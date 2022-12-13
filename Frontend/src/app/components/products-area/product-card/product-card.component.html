@@ -1,0 +1,86 @@
+<div>
+  <div class="card">
+    <div (click)="open(content)" *ngIf="this.userRole === 'User'; else admin">
+      <div class="card-img-top">
+        <img [src]="imageSource" />
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          {{ product.productName }} <br />
+          {{ product.price | currency }} <br />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #admin>
+    <div>
+      <img [src]="imageSource" class="card-img-top" />
+    </div>
+    <div class="card-body">
+      <div class="card-text">
+        {{ product.productName }} <br />
+        {{ product.price | currency }}
+        <br />
+        Edit
+        <i-bs
+          name="pencil-square"
+          id="pencilSquare"
+          (click)="this.productToEdit(product)"
+          (click)="this.offCanvasHelper(true)"
+        >
+        </i-bs>
+        <br />
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Modal for user: -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <div class="modal-title" id="modal-basic-title">
+        <img [src]="imageSource" />
+      </div>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-outline">
+        <div class="mb-3">
+          <p>{{ product.productName }}</p>
+          <p>{{ product.price | currency }}</p>
+          <div class="input-group">
+            <input
+              type="number"
+              id="quantityAmount"
+              class="form-control"
+              placeholder="Quantity"
+              value="1"
+              min="1"
+              max="50"
+              (change)="onChange($event)"
+            />
+          </div>
+          <p>In Total: {{ this.totalPrice | currency }}</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+        (click)="addItem(product)"
+        [disabled]="this.totalPrice <= 0"
+      >
+        Add
+      </button>
+    </div>
+  </ng-template>
+
+  <pre>{{ closeResult }}</pre>
+</div>

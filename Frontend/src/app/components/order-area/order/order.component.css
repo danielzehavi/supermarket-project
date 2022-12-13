@@ -1,0 +1,39 @@
+form {
+  max-width: 400px;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid rgb(130, 130, 130);
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+}
+form > input,
+form > select,
+form > button {
+  width: 100%;
+  box-sizing: border-box; /* Make buttons and inputs same size */
+  margin-bottom: 20px;
+}
+
+span {
+  color: rgb(138, 138, 138);
+  margin: 0 20px;
+  position: absolute; /* Will stay exactly where it is. */
+}
+
+.coloredSearched {
+  color: yellow;
+}
+
+#tooltip {
+  width: 100%;
+}
+
+div > input {
+  max-width: 250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

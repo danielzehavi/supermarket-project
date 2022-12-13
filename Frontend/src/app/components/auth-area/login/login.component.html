@@ -1,0 +1,65 @@
+<div class="container">
+  <div>
+    <img
+      src="../../../../assets/images/login.jpg"
+      class="img-thumbnail"
+      id="loginImg"
+    />
+    <h2>Save time by ordering your favorite groceries today!</h2>
+    <h4>We have {{ this.productsNumber }} Products available on our site,</h4>
+    <h5>
+      Delivered {{ this.ordersNumber }} orders and we keep delivering new ones
+      every day!
+    </h5>
+  </div>
+
+  <br />
+
+  <form
+    (ngSubmit)="send()"
+    ngNativeValidate
+    class="form-group container"
+    *ngIf="!isLoggedIn; else startShopping"
+  >
+    <label>Email: </label>
+    <input
+      type="text"
+      name="userName"
+      [(ngModel)]="credentials.userName"
+      required
+      minlength="3"
+      maxlength="100"
+      class="form-control"
+    />
+
+    <label>Password: </label>
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="credentials.password"
+      required
+      minlength="3"
+      maxlength="100"
+      class="form-control"
+    />
+    <br />
+    <button class="btn btn-light">Login</button>
+    <br />
+    <a routerLink="/register">Don't have an account? Sign Up</a>
+  </form>
+
+  <ng-template #startShopping>
+    <button
+      *ngIf="isLoggedIn && this.items.length === 0; else resumeShopping"
+      class="btn btn-light"
+    >
+      <a routerLink="/products">Start Shopping</a>
+    </button>
+
+    <ng-template #resumeShopping>
+      <button class="btn btn-ligh" #resumeShopping>
+        <a routerLink="/products">Resume Shopping</a>
+      </button>
+    </ng-template>
+  </ng-template>
+</div>

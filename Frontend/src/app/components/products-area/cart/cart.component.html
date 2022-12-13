@@ -1,0 +1,46 @@
+<div>
+  <div *ngIf="items?.length > 0; else empty">
+    <table border="1" class="table table-hover">
+      <thead>
+        <tr class="table-light">
+          <th scope="col">Item</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of items">
+          <td scope="row">
+            <img [src]="imageSource + i.product.imageName" />
+            <br />
+            {{ i.product.productName }}
+          </td>
+          <td>{{ i.quantity }}</td>
+          <td>{{ i.product.price | currency }}</td>
+          <td>{{ i.totalPrice | currency }}</td>
+          <td>
+            <i class="bi bi-x-circle" (click)="removeItem(i._id)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <div>Total Cart: {{ this.totalCartPrice | currency }}</div>
+    <br />
+    <div class="text-end">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="removeAllItems(cart._id)"
+      >
+        Clear Cart
+      </button>
+      <button type="button" class="btn btn-outline-dark">
+        <a routerLink="/order" (click)="closeOffCanvas()">Submit Order</a>
+      </button>
+    </div>
+  </div>
+  <ng-template #empty>Your shopping cart is empty</ng-template>
+</div>

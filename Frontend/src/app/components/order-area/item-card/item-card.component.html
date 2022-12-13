@@ -1,0 +1,11 @@
+<div>
+  <div class="itemBox">
+    <img [src]="imageSource + item.product.imageName" />
+    <div>
+      <p #itemName>{{ item.product.productName }}</p>
+
+      {{ item.product.price | currency }}
+      {{ item.quantity }}x = {{ item.totalPrice | currency }}
+    </div>
+  </div>
+</div>

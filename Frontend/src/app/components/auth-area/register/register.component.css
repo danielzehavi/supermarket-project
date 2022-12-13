@@ -1,0 +1,25 @@
+form {
+  max-width: 350px;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid rgb(130, 130, 130);
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  box-sizing: border-box; /* Make buttons and inputs same size */
+  margin-bottom: 20px;
+}
+
+span {
+  color: rgb(138, 138, 138);
+  margin: 0 20px;
+  position: absolute; /* Will stay exactly where it is. */
+}
